@@ -1,0 +1,306 @@
+Microsoft Windows [Version 10.0.22000.795]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\DanushKumar R>cd c:\xampp\mysql\bin
+
+c:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 973
+Server version: 10.4.24-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| classicmodels      |
+| course             |
+| danush             |
+| emp db             |
+| employee_info      |
+| employeedb         |
+| game               |
+| hotelmanagement    |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| players            |
+| sampledb           |
+| school             |
+| schools            |
+| test               |
+| travels            |
+| worker             |
++--------------------+
+20 rows in set (0.001 sec)
+
+MariaDB [(none)]> use hotelmanagement;
+Database changed
+MariaDB [hotelmanagement]> show tables;
++---------------------------+
+| Tables_in_hotelmanagement |
++---------------------------+
+| customer_info             |
+| reservation               |
+| room                      |
++---------------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [hotelmanagement]> describe customer_info;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| customer_id   | int(10)     | NO   | PRI | NULL    |       |
+| customer_name | varchar(40) | NO   |     | NULL    |       |
+| Gender        | varchar(5)  | NO   |     | NULL    |       |
+| Phone_no      | bigint(16)  | NO   |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.007 sec)
+
+MariaDB [hotelmanagement]> describe reservation;
++---------------+---------+------+-----+---------+-------+
+| Field         | Type    | Null | Key | Default | Extra |
++---------------+---------+------+-----+---------+-------+
+| res_id        | int(11) | NO   | PRI | NULL    |       |
+| checkin_date  | date    | NO   |     | NULL    |       |
+| checkout_date | date    | NO   |     | NULL    |       |
+| no_of_days    | int(11) | NO   |     | NULL    |       |
+| Customer_id   | int(11) | NO   | MUL | NULL    |       |
+| booking_id    | int(11) | NO   | MUL | NULL    |       |
++---------------+---------+------+-----+---------+-------+
+6 rows in set (0.006 sec)
+
+MariaDB [hotelmanagement]> describe room;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| Room_No         | int(11)     | NO   | PRI | NULL    |       |
+| Room_Type       | varchar(20) | NO   |     | NULL    |       |
+| No_of_Occupants | int(20)     | NO   |     | NULL    |       |
+| Room_Price      | int(10)     | NO   |     | NULL    |       |
+| Customer_id     | int(11)     | NO   | MUL | NULL    |       |
+| res_id          | int(11)     | NO   | MUL | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+6 rows in set (0.006 sec)
+
+MariaDB [hotelmanagement]> select* from customer_info;
++-------------+---------------+--------+-------------+
+| customer_id | customer_name | Gender | Phone_no    |
++-------------+---------------+--------+-------------+
+|     1811001 | Aswin         | M      |   987654321 |
+|     1811002 | Danush        | M      |  9585057376 |
+|     1811003 | Dhinesh       | M      |  9042309198 |
+|     1811004 | Gokul         | M      |  9585067479 |
+|     1811005 | Karan         | M      |  9858247618 |
+|     1811006 | Nirmal        | M      |  9865321245 |
+|     1811007 | Pradeep       | M      | 32659878745 |
+|     1811008 | kavin         | M      |  7845120032 |
+|     1811009 | Vijay         | M      |  6598321245 |
+|     1811010 | Sakthi        | M      |  4587986523 |
++-------------+---------------+--------+-------------+
+10 rows in set (0.001 sec)
+
+MariaDB [hotelmanagement]> select* from room;
++---------+------------+-----------------+------------+-------------+--------+
+| Room_No | Room_Type  | No_of_Occupants | Room_Price | Customer_id | res_id |
++---------+------------+-----------------+------------+-------------+--------+
+|       1 | single Bed |               2 |       1000 |     1811001 |  98701 |
+|       2 | Double Bed |               2 |       1500 |     1811002 |  98702 |
+|       3 | single bed |               3 |       1200 |     1811003 |  98703 |
+|       4 | Single bed |               2 |       1000 |     1811004 |  98704 |
+|       5 | single bed |               1 |       1000 |     1811005 |  98705 |
+|       6 | double bed |               2 |       1500 |     1811006 |  98706 |
+|       7 | single bed |               2 |       1000 |     1811007 |  98707 |
+|       8 | double bed |               2 |       1500 |     1811008 |  98708 |
+|       9 | double bed |               2 |       1500 |     1811009 |  98709 |
+|      10 | single bed |               2 |       1000 |     1811010 |  98710 |
++---------+------------+-----------------+------------+-------------+--------+
+10 rows in set (0.001 sec)
+
+
+MariaDB [hotelmanagement]> select* from reservation;
++--------+--------------+---------------+------------+-------------+------------+
+| res_id | checkin_date | checkout_date | no_of_days | Customer_id | booking_id |
++--------+--------------+---------------+------------+-------------+------------+
+|  98701 | 2022-08-08   | 2022-08-10    |          2 |     1811001 |          1 |
+|  98702 | 2022-08-01   | 2022-08-04    |          3 |     1811002 |          2 |
+|  98703 | 2022-08-11   | 2022-08-13    |          2 |     1811003 |          3 |
+|  98704 | 2022-08-09   | 2022-08-10    |          1 |     1811004 |          4 |
+|  98705 | 2022-08-14   | 2022-08-17    |          3 |     1811005 |          5 |
+|  98706 | 2022-08-11   | 2022-08-12    |          1 |     1811006 |          6 |
+|  98707 | 2022-08-17   | 2022-08-26    |          9 |     1811007 |          7 |
+|  98708 | 2022-08-17   | 2022-08-18    |          1 |     1811008 |          8 |
+|  98709 | 2022-08-18   | 2022-08-19    |          1 |     1811009 |          9 |
+|  98710 | 2022-08-26   | 2022-08-30    |          4 |     1811010 |         10 |
++--------+--------------+---------------+------------+-------------+------------+
+10 rows in set (0.000 sec)
+
+MariaDB [hotelmanagement]> select* from customer_info
+    -> where customer_id="1811006";
++-------------+---------------+--------+------------+
+| customer_id | customer_name | Gender | Phone_no   |
++-------------+---------------+--------+------------+
+|     1811006 | Nirmal        | M      | 9865321245 |
++-------------+---------------+--------+------------+
+1 row in set (0.001 sec)
+
+MariaDB [hotelmanagement]> select count(*) from customer_info
+    -> ;
++----------+
+| count(*) |
++----------+
+|       10 |
++----------+
+1 row in set (0.001 sec)
+
+MariaDB [hotelmanagement]> select max(room_price) from room;
++-----------------+
+| max(room_price) |
++-----------------+
+|            1500 |
++-----------------+
+1 row in set (0.000 sec)
+
+MariaDB [hotelmanagement]> select avg(room_price) from room;
++-----------------+
+| avg(room_price) |
++-----------------+
+|       1220.0000 |
++-----------------+
+1 row in set (0.000 sec)
+MariaDB [hotelmanagement]> select distinct room_type from room;
++------------+
+| room_type  |
++------------+
+| single Bed |
+| Double Bed |
++------------+
+2 rows in set (0.000 sec)
+
+MariaDB [hotelmanagement]> select sum(room_price) from room;
++-----------------+
+| sum(room_price) |
++-----------------+
+|           12200 |
++-----------------+
+1 row in set (0.003 sec)
+
+MariaDB [hotelmanagement]> select customer_name, checkin_date,checkout_date
+    -> from customer_info,reservation
+    -> where customer_info.customer_id= reservation.customer_id;
++---------------+--------------+---------------+
+| customer_name | checkin_date | checkout_date |
++---------------+--------------+---------------+
+| Aswin         | 2022-08-08   | 2022-08-10    |
+| Danush        | 2022-08-01   | 2022-08-04    |
+| Dhinesh       | 2022-08-11   | 2022-08-13    |
+| Gokul         | 2022-08-09   | 2022-08-10    |
+| Karan         | 2022-08-14   | 2022-08-17    |
+| Nirmal        | 2022-08-11   | 2022-08-12    |
+| Pradeep       | 2022-08-17   | 2022-08-26    |
+| kavin         | 2022-08-17   | 2022-08-18    |
+| Vijay         | 2022-08-18   | 2022-08-19    |
+| Sakthi        | 2022-08-26   | 2022-08-30    |
++---------------+--------------+---------------+
+10 rows in set (0.001 sec)
+
+MariaDB [hotelmanagement]> select* from customer_info, room, reservation
+    -> where customer_info.customer_id = room.customer_id
+    -> and room.res_id = reservation.res_id;
++-------------+---------------+--------+-------------+---------+------------+-----------------+------------+-------------+--------+--------+--------------+---------------+------------+-------------+------------+
+| customer_id | customer_name | Gender | Phone_no    | Room_No | Room_Type  | No_of_Occupants | Room_Price | Customer_id | res_id | res_id | checkin_date | checkout_date | no_of_days | Customer_id | booking_id |
++-------------+---------------+--------+-------------+---------+------------+-----------------+------------+-------------+--------+--------+--------------+---------------+------------+-------------+------------+
+|     1811001 | Aswin         | M      |   987654321 |       1 | single Bed |               2 |       1000 |     1811001 |  98701 |  98701 | 2022-08-08   | 2022-08-10    |          2 |     1811001 |          1 |
+|     1811002 | Danush        | M      |  9585057376 |       2 | Double Bed |               2 |       1500 |     1811002 |  98702 |  98702 | 2022-08-01   | 2022-08-04    |          3 |     1811002 |          2 |
+|     1811003 | Dhinesh       | M      |  9042309198 |       3 | single bed |               3 |       1200 |     1811003 |  98703 |  98703 | 2022-08-11   | 2022-08-13    |          2 |     1811003 |          3 |
+|     1811004 | Gokul         | M      |  9585067479 |       4 | Single bed |               2 |       1000 |     1811004 |  98704 |  98704 | 2022-08-09   | 2022-08-10    |          1 |     1811004 |          4 |
+|     1811005 | Karan         | M      |  9858247618 |       5 | single bed |               1 |       1000 |     1811005 |  98705 |  98705 | 2022-08-14   | 2022-08-17    |          3 |     1811005 |          5 |
+|     1811006 | Nirmal        | M      |  9865321245 |       6 | double bed |               2 |       1500 |     1811006 |  98706 |  98706 | 2022-08-11   | 2022-08-12    |          1 |     1811006 |          6 |
+|     1811007 | Pradeep       | M      | 32659878745 |       7 | single bed |               2 |       1000 |     1811007 |  98707 |  98707 | 2022-08-17   | 2022-08-26    |          9 |     1811007 |          7 |
+|     1811008 | kavin         | M      |  7845120032 |       8 | double bed |               2 |       1500 |     1811008 |  98708 |  98708 | 2022-08-17   | 2022-08-18    |          1 |     1811008 |          8 |
+|     1811009 | Vijay         | M      |  6598321245 |       9 | double bed |               2 |       1500 |     1811009 |  98709 |  98709 | 2022-08-18   | 2022-08-19    |          1 |     1811009 |          9 |
+|     1811010 | Sakthi        | M      |  4587986523 |      10 | single bed |               2 |       1000 |     1811010 |  98710 |  98710 | 2022-08-26   | 2022-08-30    |          4 |     1811010 |         10 |
++-------------+---------------+--------+-------------+---------+------------+-----------------+------------+-------------+--------+--------+--------------+---------------+------------+-------------+------------+
+10 rows in set (0.001 sec)
+
+MariaDB [hotelmanagement]> create view customer_contact as
+    -> select customer_name, phone_no
+    -> from customer_info;
+Query OK, 0 rows affected (0.007 sec)
+
+MariaDB [hotelmanagement]> show tables;
++---------------------------+
+| Tables_in_hotelmanagement |
++---------------------------+
+| customer_contact          |
+| customer_info             |
+| reservation               |
+| room                      |
++---------------------------+
+4 rows in set (0.000 sec)
+
+MariaDB [hotelmanagement]> select* from customer_contact;
++---------------+-------------+
+| customer_name | phone_no    |
++---------------+-------------+
+| Aswin         |   987654321 |
+| Danush        |  9585057376 |
+| Dhinesh       |  9042309198 |
+| Gokul         |  9585067479 |
+| Karan         |  9858247618 |
+| Nirmal        |  9865321245 |
+| Pradeep       | 32659878745 |
+| kavin         |  7845120032 |
+| Vijay         |  6598321245 |
+| Sakthi        |  4587986523 |
++---------------+-------------+
+10 rows in set (0.003 sec)
+
+MariaDB [hotelmanagement]> drop view customer_contact;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [hotelmanagement]> show tables;
++---------------------------+
+| Tables_in_hotelmanagement |
++---------------------------+
+| customer_info             |
+| reservation               |
+| room                      |
++---------------------------+
+3 rows in set (0.000 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
